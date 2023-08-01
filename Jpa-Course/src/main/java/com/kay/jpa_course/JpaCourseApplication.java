@@ -15,7 +15,7 @@ public class JpaCourseApplication {
 	}
 
 
-	@Bean
+	//@Bean
 	public CommandLineRunner commandLineRunner(
 		AuthorRepository repository
 	){
