@@ -29,7 +29,7 @@ public class JpaCourseApplication {
 				var author = Author.builder()
 						.firstName(faker.name().firstName())
 						.lastName(faker.name().lastName())
-						.age(faker.number().numberBetween(19,50))
+						.age(faker.number().numberBetween(19,99))
 						.email(faker.name().username() + "@perftraka.info")
 						.build();
 				repository.save(author);
@@ -46,7 +46,11 @@ public class JpaCourseApplication {
 
 			//repository.updateAuthor(22,1);
 
-			repository.updateAllAuthorsAges(22);
+			//repository.updateAllAuthorsAges(22);
+
+			repository.findByNamedQuery(60).forEach(System.out::println);
+
+			repository.updateByNamedQuery(12);
 		};
 	}
 
