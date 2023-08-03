@@ -5,10 +5,12 @@ import com.kay.jpa_course.models.Author;
 import com.kay.jpa_course.models.Video;
 import com.kay.jpa_course.repositories.AuthorRepository;
 import com.kay.jpa_course.repositories.VideoRespository;
+import com.kay.jpa_course.specification.AuthorSpecification;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.data.jpa.domain.Specification;
 
 @SpringBootApplication
 public class JpaCourseApplication {
@@ -32,7 +34,7 @@ public class JpaCourseApplication {
 						.age(faker.number().numberBetween(19,99))
 						.email(faker.name().username() + "@perftraka.info")
 						.build();
-				repository.save(author);
+				//repository.save(author);
 			}
 
 			var author = Author.builder()
@@ -48,9 +50,15 @@ public class JpaCourseApplication {
 
 			//repository.updateAllAuthorsAges(22);
 
-			repository.findByNamedQuery(60).forEach(System.out::println);
+//			repository.findByNamedQuery(60).forEach(System.out::println);
+//
+//			repository.updateByNamedQuery(12);
 
-			repository.updateByNamedQuery(12);
+			Specification<Author> spec = Specification
+					.where(AuthorSpecification.hasAge(22))
+					.or(AuthorSpecification.firstnameContains("i"))
+			 ;
+			repository.findAll(spec).forEach(System.out::println);
 		};
 	}
 
